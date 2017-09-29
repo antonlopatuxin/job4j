@@ -21,7 +21,9 @@ public class StubInputTest {
     @Test
     public void updateTest() throws IOException{
         Tracker tracker = new Tracker();
-        Input input = new StubInput(new String[] {"0", "Anton", "Desc", "11:56", "3", "1506241426732", "Stepan", "Desc01", "12:05", "6"});
+        Item item = new Item("Anton", "Desc", "14:49");
+        tracker.add(item);
+        Input input = new StubInput(new String[] {"2", item.getId(), "Stepan", "Desc01", "14:55", "6"});
         new StartUI(input, tracker).init();
         assertThat(tracker.findAll()[0].getName(), is("Stepan"));
     }
