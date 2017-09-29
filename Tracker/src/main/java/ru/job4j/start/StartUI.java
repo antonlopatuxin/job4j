@@ -7,30 +7,28 @@ import java.io.IOException;
 
 public class StartUI {
 
-    private Input input;
-    private Tracker tracker;
-    private Menu menu;
-
-    public StartUI(Input input) {
-        this.input = input;
-       // this.menu = new Menu();
-    }
-
-    public String init() {
-        String name = null;
-        Tracker tracker = new Tracker();
-      //  tracker.add()
-
-        for (Item item : tracker.findAll()) {
-            name = item.getName();
-
-        }
-        return name;
-    }
+//    private Input input;
+//    private Tracker tracker;
+//
+////    public StartUI(Input input) {
+////        this.input = input;
+//       // this.menu = new Menu();
+//   // }
+//
+//    public void init() {
+//        String ask = input.askString("Enter a number: ");
+//        switch(ask){
+//
+//        }
+//
+//    }
 
     public static void main(String[] args) throws IOException {
 
-        Menu menuTracker = new Menu();
-        menuTracker.menuAction();
+        Tracker tracker = new Tracker();
+        String[] array = new String[5];
+        Input input = new ConsoleInput();
+        Menu start = new Menu(tracker, input);
+        start.menuAction();
     }
 }

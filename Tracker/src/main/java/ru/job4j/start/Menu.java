@@ -5,9 +5,14 @@ import ru.job4j.tracker.*;
 
 public class Menu {
 
-    Tracker tracker = new Tracker();
+    private Tracker tracker;
     private int switchPar; // параметр свитч
-    ConsoleInput consoleInput = new ConsoleInput();
+    private Input input;
+
+    public Menu(Tracker tracker, Input input){
+        this.tracker = tracker;
+        this.input = input;
+    }
 
 
     // вывод меню на экран
@@ -27,14 +32,14 @@ public class Menu {
         while(switchPar != 6) { // реализация выхода из программы
 
             this.menu();
-            switchPar = consoleInput.askInt("Введите кнопку меню: ");
+            switchPar = input.askInt("Введите кнопку меню: ");
 
             switch (switchPar) {
 
                 case 0:
-                    String nameItem =  consoleInput.askString("Введите имя заявки: "); // запрашиваем имя заявки
-                    String descItem = consoleInput.askString("Введите описание заявки: "); // запрашиваем описание заявки
-                    String timeCreate = consoleInput.askString("Введите время создания заявки: "); // пока вводим вручную поэтому и тип стринг
+                    String nameItem =  input.askString("Введите имя заявки: "); // запрашиваем имя заявки
+                    String descItem = input.askString("Введите описание заявки: "); // запрашиваем описание заявки
+                    String timeCreate = input.askString("Введите время создания заявки: "); // пока вводим вручную поэтому и тип стринг
 
                     tracker.add(new Item(nameItem, descItem, timeCreate));
                     break;
@@ -44,19 +49,19 @@ public class Menu {
                     break;
 
                 case 2:
-                    String id = consoleInput.askString("Введите id заявки: ");
+                    String id = input.askString("Введите id заявки: ");
                     tracker.update(id);
                     break;
 
                 case 3:
-                    String idDelete = consoleInput.askString("Введите id заявки: ");
+                    String idDelete = input.askString("Введите id заявки: ");
                     tracker.delete(idDelete);
 
                     System.out.println("Заявка удалена.");
                     break;
 
                 case 4:
-                    String findId = consoleInput.askString("Введите id заявки: ");
+                    String findId = input.askString("Введите id заявки: ");
                     Item item = tracker.findById(findId);
 
                     System.out.println(item.getCreate());
@@ -66,7 +71,7 @@ public class Menu {
                     break;
 
                 case 5:
-                    String name = consoleInput.askString("Введите имя заявки: ");
+                    String name = input.askString("Введите имя заявки: ");
                     Item itemName = tracker.findByName(name);
 
                     System.out.println((itemName.getCreate()));
