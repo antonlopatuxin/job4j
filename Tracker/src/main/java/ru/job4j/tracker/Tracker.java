@@ -51,6 +51,7 @@ public class Tracker {
         Item[] result = new Item[this.position]; // создаем массив с текущим количеством элементов в основном массиве
 
         if(this.position == 0){ // проверяем пустой ли массив
+           // String test = "null";
             System.out.println("Список заявок пуст");
             System.out.println();
         } else { // Если не пустой то заводим цикл

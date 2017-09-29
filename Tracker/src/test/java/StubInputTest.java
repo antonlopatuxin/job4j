@@ -1,16 +1,36 @@
 import org.junit.Test;
 import ru.job4j.start.*;
+import ru.job4j.tracker.Item;
 import ru.job4j.tracker.Tracker;
+
+import java.io.IOException;
+
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
 public class StubInputTest {
 
     @Test
-    public void addTest(){
+    public void addTest() throws IOException { // проверка создания заявки
         Tracker tracker = new Tracker();
-        Input input = new StubInput(new String[] {"0", "Anton", "Desc", "-01", "6"}); // Создаем массив с последовательностью действий
-        new Menu(tracker,input);
+        Input input = new StubInput(new String[] {"0", "Anton", "Desc", "11:56", "6"}); // Создаем массив с последовательностью действий
+        new StartUI(input, tracker).init();
         assertThat(tracker.findAll()[0].getName(), is("Anton"));
+    }
+
+    @Test
+    public void updateTest() throws IOException{
+        Tracker tracker = new Tracker();
+        Input input = new StubInput(new String[] {"0", "Anton", "Desc", "11:56", "3", "1506241426732", "Stepan", "Desc01", "12:05", "6"});
+        new StartUI(input, tracker).init();
+        assertThat(tracker.findAll()[0].getName(), is("Stepan"));
+    }
+
+    @Test
+    public void deleteTest() throws IOException {
+        Tracker tracker = new Tracker();
+        Input input = new StubInput(new String[] {"3", "1506241426732"});
+        new StartUI(input, tracker).init();
+        assertThat(tracker.findAll()[0].getName(), is("список заявок пуст"));
     }
 }
