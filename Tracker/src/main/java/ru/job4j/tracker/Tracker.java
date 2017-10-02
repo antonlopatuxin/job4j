@@ -1,6 +1,7 @@
 package ru.job4j.tracker;
 
 import ru.job4j.start.ConsoleInput;
+import ru.job4j.start.Input;
 
 import java.io.IOException;
 import java.util.*;
@@ -10,7 +11,7 @@ public class Tracker {
     private Item[] items = new Item[100];
     private int position = 0;
     private static final Random RN = new Random(); // генерация случайного числа
-    private ConsoleInput input = new ConsoleInput();
+    private Input input;
 
     // добавление заявки
     public Item add(Item item){
@@ -98,13 +99,13 @@ public class Tracker {
 
                 System.out.println("Заявка найдена.");
 
-                String name =  input.askString("Ведите новое имя заявки: ");
+                String name =  this.input.askString("Ведите новое имя заявки: ");
                 items[count].setName(name); // меняем имя заявки
 
-                String description = input.askString("Введите новое описание заявки: ");
+                String description = this.input.askString("Введите новое описание заявки: ");
                 items[count].setDescription(description); // меняем описание заявки
 
-                String time = input.askString("Введите время изменения заявки: ");
+                String time = this.input.askString("Введите время изменения заявки: ");
                 items[count].setCreate(time);
 
                 System.out.println("Изменения сохранены.");
