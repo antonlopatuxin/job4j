@@ -66,7 +66,7 @@ public class StartUI {
 
     public static void main(String[] args) throws IOException {
         Input input = new ConsoleInput();
-        Menu start = new Menu(new Tracker(), input);
+        Menu start = new Menu(new Tracker(input), input);
         start.menuAction();
     }
 }

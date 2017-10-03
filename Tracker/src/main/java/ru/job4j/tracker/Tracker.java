@@ -13,6 +13,10 @@ public class Tracker {
     private static final Random RN = new Random(); // генерация случайного числа
     private Input input;
 
+    public Tracker(Input input){
+        this.input = input;
+    }
+
     // добавление заявки
     public Item add(Item item){
 
