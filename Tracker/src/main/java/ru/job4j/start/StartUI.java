@@ -1,5 +1,6 @@
 package ru.job4j.start;
 
+import com.sun.deploy.trace.Trace;
 import ru.job4j.tracker.Item;
 import ru.job4j.tracker.Tracker;
 
@@ -28,17 +29,37 @@ public class StartUI {
                     String nameItem =  input.askString("Введите имя заявки: "); // запрашиваем имя заявки
                     String descItem = input.askString("Введите описание заявки: "); // запрашиваем описание заявки
                     String timeCreate = input.askString("Введите время создания заявки: "); // пока вводим вручную поэтому и тип стринг
-
                     tracker.add(new Item(nameItem, descItem, timeCreate));
                     break;
 
                 case 1:
-                    System.out.println( tracker.findAll());
+                    for(int count = 0; count < tracker.findAll().length; count++){
+                        System.out.println("Имя заявки: " + tracker.findAll()[count].getName());
+                        System.out.println("Описание заявки: " + tracker.findAll()[count].getDescription());
+                        System.out.println("Время создания заявки: " + tracker.findAll()[count].getCreate());
+                        System.out.println("ID заявки: " + tracker.findAll()[count].getId());
+                       if(count == tracker.findAll().length - 1){
+                           System.out.println("<==================================================>");
+                       }else{
+                           System.out.println("<-------------------------------------------------->");
+                       }
+                    }
                     break;
 
                 case 2:
-                    String id = input.askString("Введите id заявки: ");
-                    tracker.update(id);
+                    String[] arrayUpdate = new String[10];
+                    arrayUpdate[0] = input.askString("Введите id заявки: ");
+                    Item itemUpdate = tracker.findById(arrayUpdate[0]);
+                    if(itemUpdate.getId().equals(arrayUpdate[0])){
+                        arrayUpdate[1] = input.askString("Введите новое имя заявки:");
+                        arrayUpdate[2] = input.askString("Введите новое описание заявки:");
+                        arrayUpdate[3] = input.askString("Введите время редактирования заявки:");
+                        tracker.update(itemUpdate, arrayUpdate);
+                        System.out.println("Заявка изменена и сохранена ");
+                        System.out.println("<==================================================>");
+                    }else{
+                        System.out.println("Заявка не найдена");
+                    }
                     break;
 
                 case 3:
@@ -49,13 +70,13 @@ public class StartUI {
 
                 case 4:
                     String findId = input.askString("Введите id заявки: ");
-                    Item item = tracker.findById(findId);
+                    tracker.findById(findId);
 
                     break;
 
                 case 5:
                     String name = input.askString("Введите имя заявки: ");
-                    Item itemName = tracker.findByName(name);
+                    tracker.findByName(name);
 
                     break;
             }
@@ -66,7 +87,7 @@ public class StartUI {
 
     public static void main(String[] args) throws IOException {
         Input input = new ConsoleInput();
-        Menu start = new Menu(new Tracker(input), input);
+        Menu start = new Menu(new Tracker(), input);
         start.menuAction();
     }
 }

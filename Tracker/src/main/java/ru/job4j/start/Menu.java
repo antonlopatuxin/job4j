@@ -33,6 +33,7 @@ public class Menu {
 
             this.menu();
             switchPar = input.askInt("Введите кнопку меню: ");
+            System.out.println("<===================================================>");
 
             switch (switchPar) {
 
@@ -40,17 +41,44 @@ public class Menu {
                     String nameItem =  input.askString("Введите имя заявки: "); // запрашиваем имя заявки
                     String descItem = input.askString("Введите описание заявки: "); // запрашиваем описание заявки
                     String timeCreate = input.askString("Введите время создания заявки: "); // пока вводим вручную поэтому и тип стринг
-
                     tracker.add(new Item(nameItem, descItem, timeCreate));
+                    System.out.println("Заявка добавлена и сохранена");
+                    System.out.println("<===================================================>");
                     break;
 
                 case 1:
-                    System.out.println( tracker.findAll());
+                    if(tracker.findAll() == null){
+                        System.out.println("Список заявок пуст");
+                        System.out.println("<=====================================================>");
+                        }else {
+                        for(int count = 0; count < tracker.findAll().length; count++){
+                            System.out.println("Имя заявки: " + tracker.findAll()[count].getName());
+                            System.out.println("Описание заявки: " + tracker.findAll()[count].getDescription());
+                            System.out.println("Время создания заявки: " + tracker.findAll()[count].getCreate());
+                            System.out.println("ID заявки: " + tracker.findAll()[count].getId());
+                            if (count == tracker.findAll().length - 1) {
+                                System.out.println("<=====================================================>");
+                            } else {
+                                System.out.println("<------------------------------------------------------>");
+                            }
+                        }
+                    }
                     break;
 
                 case 2:
-                    String id = input.askString("Введите id заявки: ");
-                    tracker.update(id);
+                    String[] arrayUp = new String[10];
+                    arrayUp[0] = input.askString("Введите id заявки: ");
+                    Item itemUp = tracker.findById(arrayUp[0]);
+                    if(itemUp.getId().equals(arrayUp[0])){
+                        arrayUp[1] = input.askString("Введите новое имя заявки:");
+                        arrayUp[2] = input.askString("Введите новое описание заявки:");
+                        arrayUp[3] = input.askString("Введите время редактирования заявки:");
+                        tracker.update(itemUp, arrayUp);
+                        System.out.println("Заявка изменена и сохранена");
+                        System.out.println("<===========================================================>");
+                    }else{
+                        System.out.println("Заявка не найдена");
+                    }
                     break;
 
                 case 3:

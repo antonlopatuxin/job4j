@@ -11,11 +11,6 @@ public class Tracker {
     private Item[] items = new Item[100];
     private int position = 0;
     private static final Random RN = new Random(); // генерация случайного числа
-    private Input input;
-
-    public Tracker(Input input){
-        this.input = input;
-    }
 
     // добавление заявки
     public Item add(Item item){
@@ -56,20 +51,10 @@ public class Tracker {
         Item[] result = new Item[this.position]; // создаем массив с текущим количеством элементов в основном массиве
 
         if(this.position == 0){ // проверяем пустой ли массив
-           // String test = "null";
-            System.out.println("Список заявок пуст");
-            System.out.println();
+            result = null;
         } else { // Если не пустой то заводим цикл
             for (int count = 0; count != this.position; count++) {
-
                 result[count] = this.items[count]; // заполняем массив текущими значениями
-
-                // Доработал метод, теперь он выводит данные каждой заявки
-                System.out.println(result[count].getCreate());
-                System.out.println(result[count].getName());
-                System.out.println(result[count].getDescription());
-                System.out.println(result[count].getId());
-                System.out.println();
             }
         }
         return result;
@@ -93,45 +78,21 @@ public class Tracker {
 
     // редактирование заявки
     // модифицировал метод для адекватного редактирования
-    public void update(String id) throws IOException {
-
-        for(Item array : this.items){
-
-            int count = 0; // переменная счетчика для подсчета ячейки массива
-
-            if(array != null && array.getId().equals(id)){
-
-                System.out.println("Заявка найдена.");
-
-                String name =  this.input.askString("Ведите новое имя заявки: ");
-                items[count].setName(name); // меняем имя заявки
-
-                String description = this.input.askString("Введите новое описание заявки: ");
-                items[count].setDescription(description); // меняем описание заявки
-
-                String time = this.input.askString("Введите время изменения заявки: ");
-                items[count].setCreate(time);
-
-                System.out.println("Изменения сохранены.");
-            }
-
-            count++;
-        }
+    public void update(Item item, String[] arrayUpdate) throws IOException {
+        item.setName(arrayUpdate[1]);
+        item.setDescription(arrayUpdate[2]);
+        item.setCreate(arrayUpdate[3]);
     }
 
     // удаление заявки по ее id
     public void delete(String id){
-
+        int count = 0;
         for(Item temp : this.items){
-
-            int count = 0;
-
             if(temp != null && temp.getId().equals(id)){
-
                 this.items[count] = null;
+                break;
             }
-
-            count++;
+                count++;
         }
     }
 
