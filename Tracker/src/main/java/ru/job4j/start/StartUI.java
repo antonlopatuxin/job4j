@@ -10,12 +10,12 @@ public class StartUI {
     private Input input;
     private Tracker tracker;
     private int switchValue;
-    private final int addItem = 0;
-    private final int findAllItems = 1;
-    private final int updateItem = 2;
-    private final int deleteItem = 3;
-    private final int findByIdItem = 4;
-    private final int findByNameItem = 5;
+    private final int AddItem = 0;
+    private final int FindAllItems = 1;
+    private final int UpdateItem = 2;
+    private final int DeleteItem = 3;
+    private final int FindByIdItem = 4;
+    private final int FindByNameItem = 5;
 
     public StartUI(Input input, Tracker tracker) {
         this.input = input;
@@ -83,27 +83,27 @@ public class StartUI {
 
             switch(switchValue){
 
-                case addItem:
+                case AddItem:
                     addItem();
                     break;
 
-                case findAllItems:
+                case FindAllItems:
                     findAllItems();
                     break;
 
-                case updateItem:
+                case UpdateItem:
                     updateItems();
                     break;
 
-                case deleteItem:
+                case DeleteItem:
                     deleteItem();
                     break;
 
-                case findByIdItem:
+                case FindByIdItem:
                     findByIdItem();
                     break;
 
-                case findByNameItem:
+                case FindByNameItem:
                     findByNameItem();
                     break;
             }
