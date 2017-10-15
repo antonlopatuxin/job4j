@@ -1,5 +1,8 @@
 package ru.job4j.start;
 
+import ru.job4j.strategy.Paint;
+import ru.job4j.strategy.Square;
+import ru.job4j.strategy.Triangle;
 import ru.job4j.tracker.Item;
 import ru.job4j.tracker.Tracker;
 
@@ -116,5 +119,6 @@ public class StartUI {
         Input input = new ConsoleInput();
         Menu start = new Menu(new Tracker(), input);
         start.menuAction();
+
     }
 }
