@@ -11,11 +11,10 @@ public class Item {
 
     }
 
-    public Item(String name, String description, String create){
+    public Item(String name, String description){
 
         this.name = name;
         this.description = description;
-        this.create = create;
     }
 
     public String getName(){

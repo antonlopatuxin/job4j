@@ -16,6 +16,7 @@ public class Tracker {
     public Item add(Item item){
 
         item.setId(this.generatedId());
+        item.setCreate(this.generatedTime());
         this.items[position++] = item; // position++ означает, что при каждом вызове функции мы смещаемся на ячейку в массиве
         return item;
     }
@@ -38,6 +39,12 @@ public class Tracker {
         return result;
     }
 
+    private String generatedTime(){ // Метод генерации времени создания заявки
+
+        Date date = new Date();
+        return date.toString();
+    }
+
     private String generatedId(){
         /* получаем псевдорандомное число типа int, и чтобы оно не повторялось добавляем текущее время,
         метод valueOf преобразует числовое значение в строку
@@ -48,15 +55,20 @@ public class Tracker {
     // получение всего списка заявок
     public Item[] findAll(){
 
-        Item[] result = new Item[this.position]; // создаем массив с текущим количеством элементов в основном массиве
+        Item[] result = new Item[this.position]; // создаем массив для записи туда ссылок на заявки
 
-        if(this.position == 0){ // проверяем пустой ли массив
-            result = null;
-        } else { // Если не пустой то заводим цикл
             for (int count = 0; count != this.position; count++) {
-                result[count] = this.items[count]; // заполняем массив текущими значениями
+
+                if(this.items[count] != null) { // проверяем есть ли в массиве ссылки
+
+                    result[count] = this.items[count];// заполняем массив ссылками на заявки
+
+                } else{ // иначе массиву присваиваем нулл
+
+                    result = null;
+                }
             }
-        }
+
         return result;
     }
 
@@ -86,13 +98,14 @@ public class Tracker {
 
     // удаление заявки по ее id
     public void delete(String id){
-        int count = 0;
-        for(Item temp : this.items){
-            if(temp != null && temp.getId().equals(id)){
+
+        for(int count = 0; count < this.items.length; count++){
+
+            if(id.equals(this.items[count].getId())){
+
                 this.items[count] = null;
                 break;
             }
-                count++;
         }
     }
 

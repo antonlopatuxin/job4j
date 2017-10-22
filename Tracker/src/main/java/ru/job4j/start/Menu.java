@@ -14,6 +14,8 @@ public class Menu {
     private final int DeleteItem = 3;
     private final int FindByIdItem = 4;
     private final int FindByNameItem = 5;
+    private final int Exit = 6;
+    private String exitOfTracker = "null"; // переменные для реализации цикла while
 
     public Menu(Tracker tracker, Input input){
         this.tracker = tracker;
@@ -36,7 +38,7 @@ public class Menu {
         String nameItem =  input.askString("Введите имя заявки: "); // запрашиваем имя заявки
         String descItem = input.askString("Введите описание заявки: "); // запрашиваем описание заявки
         String timeCreate = input.askString("Введите время создания заявки: "); // пока вводим вручную поэтому и тип стринг
-        tracker.add(new Item(nameItem, descItem, timeCreate));
+        tracker.add(new Item(nameItem, descItem));
         System.out.println("Заявка добавлена и сохранена");
         System.out.println("<===================================================>");
     }
@@ -101,10 +103,14 @@ public class Menu {
         System.out.println(itemName.getDescription());
     }
 
+    private String exit()throws IOException{
+      return exitOfTracker = input.askString("Вы точно хотите выйти? (yes/no): ");
+    }
+
     // реализация работы меню
     public void menuAction() throws IOException {
 
-        while(switchPar != 6) { // реализация выхода из программы
+        while(!"yes".equals(exitOfTracker)) { // реализация выхода из программы
 
             this.menu();
             switchPar = input.askInt("Введите кнопку меню: ");
@@ -134,6 +140,10 @@ public class Menu {
 
                 case FindByNameItem:
                     findByNameItem();
+                    break;
+
+                case Exit:
+                    exit();
                     break;
 
             }
