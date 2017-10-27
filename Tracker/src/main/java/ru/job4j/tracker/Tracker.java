@@ -39,7 +39,7 @@ public class Tracker {
         return result;
     }
 
-    private String generatedTime(){ // Метод генерации времени создания заявки
+    public String generatedTime(){ // Метод генерации времени создания заявки
 
         Date date = new Date();
         return date.toString();
