@@ -17,10 +17,27 @@ public class ConsoleInput implements Input {
       return input.readLine();
     }
     // Ввод целочисленных параметров
-    public int askInt(String question) throws IOException {
+    public int askInt(String question, int[] range) throws IOException {
         System.out.print(question);
         inString = input.readLine();
+        int key = Integer.parseInt(inString);
+        boolean exist = false;
 
-        return Integer.parseInt(inString);
+        for(int value : range){
+
+            if(value == key){
+                exist = true;
+                break;
+            }
+        }
+
+        if(exist){
+
+            return key;
+        } else{
+
+            throw new MenuOutException("Некорректный ввод");
+        }
+
     }
 }

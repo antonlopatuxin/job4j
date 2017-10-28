@@ -14,7 +14,7 @@ public class StubInput implements Input {
         return answers[position++];
     }
 
-    public int askInt(String question)throws IOException{
+    public int askInt(String question, int[] range)throws IOException{
         return Integer.parseInt(answers[position++]);
     }
 }

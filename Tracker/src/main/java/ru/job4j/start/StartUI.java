@@ -12,6 +12,7 @@ public class StartUI {
 
     private Input input;
     private Tracker tracker;
+    private int[] range = new int[] {0, 1, 2, 3, 4, 5, 6};
 
     public StartUI(Input input, Tracker tracker) {
         this.input = input;
@@ -26,7 +27,7 @@ public class StartUI {
         do{
 
             menu.show();
-            int key = input.askInt("Введите пункт меню: ");
+            int key = input.askInt("Введите пункт меню: ", this.range);
             menu.select(key);
 
         } while(!"Да".equals(menu.getExit()));
@@ -35,7 +36,7 @@ public class StartUI {
 
     public static void main(String[] args) throws IOException {
 
-        StartUI start = new StartUI(new ConsoleInput(), new Tracker());
+        StartUI start = new StartUI(new ValidateInput(), new Tracker());
         start.init();
     }
 }
