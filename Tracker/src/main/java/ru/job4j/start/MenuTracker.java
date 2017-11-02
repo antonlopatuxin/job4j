@@ -34,13 +34,13 @@ public class MenuTracker {
 
     public void fillActions(){ // инициализируем классы действий, используем вместо оператора switch
 
-        this.actions[position++] = new AddItem(0, "<=====================================>\nДобавление новой заявки.");
-        this.actions[position++] = new FindAll();
-        this.actions[position++] = new FindByName();
-        this.actions[position++] = new FindById();
-        this.actions[position++] = new UpdateItem();
-        this.actions[position++] = new DeleteItem();
-        this.actions[position++] = new Exit();
+        this.actions[position++] = new AddItem(0, "Добавление новой заявки.");
+        this.actions[position++] = new FindAll(1,"Показ списка заявок.");
+        this.actions[position++] = new FindByName(2, "Поиск заявки по имени.");
+        this.actions[position++] = new FindById(3, "Поиск заявки по ID.");
+        this.actions[position++] = new UpdateItem(4, "Редактирование заявки.");
+        this.actions[position++] = new DeleteItem(5, "Удаление заявки.");
+        this.actions[position++] = new Exit(6, "Выход.\n\"<=====================================>");
     }
 
     public void addAction(UserAction action){ //Данный метод позволяет добавлять новые действия
@@ -64,11 +64,8 @@ public class MenuTracker {
 
     private class AddItem extends BaseAction{ //внутренний класс добавления заявок
 
-        public AddItem(int key, String menuButton){
+        public AddItem(int key, String menuButton){ // конструктор в котором мы вызываем конструкор родительского класса
             super(key, menuButton);
-        }
-        public int key(){
-            return 0;
         }
 
         public void execute(Input input, Tracker tracker)throws IOException{ // реализация добавления заявок
@@ -83,17 +80,13 @@ public class MenuTracker {
             tracker.add(new Item(name, description));
             System.out.println("Заявка создана.");
         }
-        public String info(){ // показывает пункт меню 0, здесь символы %s позволяют между методом и строкой вставить точку и пробел
-            return String.format("<=====================================>\n%s. %s", this.key(),"Добавление новой заявки.");
-        }
     }
 
-    private class FindAll implements UserAction{ // внутренний класс списка заявок
+    private class FindAll extends BaseAction{ // внутренний класс списка заявок
 
-        public int key(){
-            return 1;
+        public FindAll(int key, String menuButton){ // конструктор в котором мы вызываем конструкор родительского класса
+            super(key, menuButton);
         }
-
         public void execute(Input input, Tracker tracker)throws IOException{ // реализация показа списка заявок
 
             if(tracker.findAll() == null){ // Если список заявок пуст, сообщаем об этом
@@ -123,19 +116,13 @@ public class MenuTracker {
                 }
             }
         }
-
-        public String info() { // показывает пункт меню 1, здесь символы %s позволяют между методом и строкой вставить точку и пробел
-
-            return String.format("%s. %s", this.key(), "Показ списка заявок.");
-        }
     }
 
-    private class FindByName implements UserAction { // реализация поиска заявки по имени
+    private class FindByName extends BaseAction{ // реализация поиска заявки по имени
 
-        public int key(){
-            return 2;
+        public FindByName(int key, String menuButton){ // конструктор в котором мы вызываем конструкор родительского класса
+            super(key, menuButton);
         }
-
         public void execute(Input input, Tracker tracker) throws IOException {
 
             System.out.println("<=====================================>");
@@ -152,18 +139,13 @@ public class MenuTracker {
                 System.out.println("ID заявки: " + tracker.findByName(name).getId());
             }
         }
-
-        public String info() {
-            return String.format("%s. %s", this.key(), "Поиск заявки по имени."); // вывод пункта меню 2 на экран, здесь символы %s позволяют между методом и строкой вставить точку и пробел
-        }
     }
 
-    private class FindById implements UserAction{ //реализация поиска заявки по ID
+    private class FindById extends BaseAction{ //реализация поиска заявки по ID
 
-        public int key() {
-            return 3;
+        public FindById(int key, String menuButton){ // конструктор в котором мы вызываем конструкор родительского класса
+            super(key, menuButton);
         }
-
         public void execute(Input input, Tracker tracker) throws IOException {
 
             System.out.println("<=====================================>");
@@ -180,20 +162,13 @@ public class MenuTracker {
                 System.out.println("Время создания заявки: " + tracker.findById(id).getCreate());
             }
         }
-
-        public String info() { // вывод на экран пункта меню 3, здесь символы %s позволяют между методом и строкой вставить точку и пробел
-            return String.format("%s. %s", this.key(), "Поиск заявки по ID.");
-        }
-
-
     }
 
-    private class UpdateItem implements UserAction{ // реализация редактирования заявки
+    private class UpdateItem extends BaseAction{ // реализация редактирования заявки
 
-        public int key() {
-            return 4;
+        public UpdateItem(int key, String menuButton){ // конструктор в котором мы вызываем конструкор родительского класса
+            super(key, menuButton);
         }
-
         public void execute(Input input, Tracker tracker) throws IOException {
 
             System.out.println("<=====================================>");
@@ -219,18 +194,13 @@ public class MenuTracker {
                 System.out.println("Заявка не найдена.");
             }
         }
-
-        public String info() { // показ пункта меню 4, здесь символы %s позволяют между методом и строкой вставить точку и пробел
-            return String.format("%s. %s", this.key(), "Редактирование заявки.");
-        }
     }
 
-    private class DeleteItem implements UserAction {
+    private class DeleteItem extends BaseAction {
 
-        public int key() {
-            return 5;
+        public DeleteItem(int key, String menuButton){ // конструктор в котором мы вызываем конструкор родительского класса
+            super(key,menuButton);
         }
-
         public void execute(Input input, Tracker tracker) throws IOException {
 
             System.out.println("<=====================================>");
@@ -238,32 +208,21 @@ public class MenuTracker {
             System.out.println("Заявка удалена.");
             System.out.println("<=====================================>");
         }
-
-        public String info() {
-            return String.format("%s. %s", this.key(), "Удаление заявки.");
-        }
     }
 
-    private class Exit implements UserAction{
+    private class Exit extends BaseAction{
 
         /**
          * Выход из программы реализовал через дополнительное поле и геттер - сеттер
          * Геттер необходим для прерывания цикла do-while который обеспечивает непрерывную работу программы
          **/
 
-        public int key() {
-            return 6;
+        public Exit(int key, String menuButton){ // конструктор в котором мы вызываем конструкор родительского класса
+            super(key, menuButton);
         }
-
         public void execute(Input input, Tracker tracker) throws IOException {
 
             setExit(input.askString("Вы точно хотите выйти? (Да/Нет): "));
         }
-
-        public String info() {
-            return String.format("%s. %s", this.key(), "Выход.");
-        }
     }
-
-
 }
