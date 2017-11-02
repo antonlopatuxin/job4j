@@ -14,8 +14,9 @@ public class MenuTracker {
 
     private Input input;
     private Tracker tracker;
-    private UserAction[] actions = new UserAction[7]; // массив для реализации меню
+    private UserAction[] actions = new UserAction[100]; // массив для реализации меню
     private String exit = null; //переменная для реализации выхода из программы
+    private int position = 0;
 
     public MenuTracker(Input input, Tracker tracker){
 
@@ -33,13 +34,18 @@ public class MenuTracker {
 
     public void fillActions(){ // инициализируем классы действий, используем вместо оператора switch
 
-        this.actions[0] = new AddItem();
-        this.actions[1] = new FindAll();
-        this.actions[2] = new FindByName();
-        this.actions[3] = new FindById();
-        this.actions[4] = new UpdateItem();
-        this.actions[5] = new DeleteItem();
-        this.actions[6] = new Exit();
+        this.actions[position++] = new AddItem(0, "<=====================================>\nДобавление новой заявки.");
+        this.actions[position++] = new FindAll();
+        this.actions[position++] = new FindByName();
+        this.actions[position++] = new FindById();
+        this.actions[position++] = new UpdateItem();
+        this.actions[position++] = new DeleteItem();
+        this.actions[position++] = new Exit();
+    }
+
+    public void addAction(UserAction action){ //Данный метод позволяет добавлять новые действия
+
+        this.actions[position++] = action;
     }
 
     public void select(int key)throws IOException{ // метод выбора пункта меню из массива
@@ -56,8 +62,11 @@ public class MenuTracker {
         }
     }
 
-    private class AddItem implements UserAction{ //внутренний класс добавления заявок
+    private class AddItem extends BaseAction{ //внутренний класс добавления заявок
 
+        public AddItem(int key, String menuButton){
+            super(key, menuButton);
+        }
         public int key(){
             return 0;
         }
